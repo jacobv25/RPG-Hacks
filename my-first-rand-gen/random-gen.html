@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Harry Potter RPG Character Generator</title>
+    <style>
+        #output {
+            margin-bottom: 1rem;
+        }
+    </style>
+    <script>
+        function generateCharacter() {
+
+            /**
+             * ADD NEW FAILED CAREERS HERE
+             **/
+            const careers = ['Transmutation Expert', 'Death Eater', 'Quidditch Player', 'Herbologist', 'Potion Maker', 'Love Charm Expert'];
+
+            /**
+             * ADD NEW FAILED CAREERS HERE
+             **/
+            const transmutationExpertQuestions = [
+                {
+                    question: "What was your specialty?",
+                    answers: [
+                        "Metamorph Magician: You can transform small objects into other small objects of similar size and mass for a short period. The effect lasts up to one minute.",
+                        "Polymorph Perfumer: You can create scents that cause temporary physical transformations in those who inhale them. Effects are often unpredictable and last for a few minutes.",
+                        "Material Manipulator: You can soften or harden materials for a brief period, making them easier to shape or more resistant to damage.",
+                        "Biological Blender: You can merge two creatures or plants, creating bizarre hybrid organisms. These hybrids are often unstable and may not survive long.",
+                        "Shape-Shifter Savant: You can change your appearance to resemble another person or creature for up to one hour. This transformation is purely cosmetic and does not grant any abilities.",
+                        "Elemental Engineer: You can temporarily change the elemental properties of an object, such as turning a wooden door into a stone one. The effect lasts for up to one hour."
+                    ]
+                },
+                {
+                    question: "What disastrous transformation did you cause?",
+                    answers: [
+                        "Accidentally turned a noble's prized pet into an abomination: Gain a vial of reversal elixir that can undo one transformation.",
+                        "Transformed a statue into a rampaging golem: Gain a control rod that can command one golem, construct, or animated object.",
+                        "Turned an important document into an indecipherable mess: Gain a deciphering monocle that can translate any written language.",
+                        "Merged two rival gang leaders into a single entity: Gain a splitting potion that can separate merged beings.",
+                        "Caused a building to collapse by weakening its structure: Gain a reinforcement charm that can temporarily strengthen a structure.",
+                        "Unwittingly changed the local weather pattern, causing chaos: Gain a small device that can create a localized weather effect."
+                    ]
+                }
+            ];
+            const deathEaterQuestions = [
+                {
+                    question: "What was your role within the Death Eaters?",
+                    answers: [
+                        "£1 Enforcer: You carried out punishments for those who defied the Dark Lord's will.",
+                        "£2 Spy: You infiltrated enemy ranks and gathered valuable intelligence.",
+                        "£3 Recruiter: You persuaded others to join the Death Eaters, promising power and influence.",
+                        "£4 Ritualist: You performed dark rituals to further the Dark Lord's goals.",
+                        "£5 Strategist: You planned and orchestrated attacks against the enemies of the Death Eaters.",
+                        "£6 Diplomat: You forged alliances with other dark creatures and factions on behalf of the Death Eaters."
+                    ]
+                },
+                {
+                    question: "What led to the end of your Death Eater career?",
+                    answers: [
+                        "1HP Betrayal: You were betrayed by a fellow Death Eater, who exposed your identity and forced you into hiding. Take a cursed amulet that causes bad luck for those around you, but not for you.",
+                        "2HP Redemption: You had a change of heart and tried to leave the Death Eaters, only to be hunted down as a traitor. Take a half-burned Dark Mark tattoo that sometimes aches, alerting you to nearby danger.",
+                        "3HP Failure: You failed an important mission, leading to your disgrace and expulsion from the ranks. Take a broken wand (d4) that only works for minor spells and occasionally backfires.",
+                        "4HP Disillusionment: You became disillusioned with the Death Eaters' goals and chose to abandon your allegiance. Take a locket containing a picture of someone who inspired your change of heart.",
+                        "5HP Capture: You were captured by the enemy, and although you escaped, your status as a Death Eater was ruined. Take a set of enchanted shackles that can bind anyone, but only once.",
+                        "6HP Dark Magic: Your overreliance on dark magic took a toll on your mind and body, rendering you unable to continue serving the Dark Lord. Take a potion of temporary power (d8) that causes debilitating side effects after use."
+                    ]
+                }
+            ];
+
+            const failedLoveCharmExpert = [
+                {
+                    question: "What was your signature charm?",
+                    answers: [
+                        "Attraction Amulet: Take a broken amulet that once increased the wearer's charm.",
+                        "Soulmate Stone: Take a cracked stone that was supposed to reveal one's soulmate.",
+                        "Relationship Repair Ring: Take a bent ring that was meant to mend broken relationships.",
+                        "Passion Pendant: Take a tarnished pendant that once ignited desire between couples.",
+                        "Commitment Charm: Take a frayed charm that was meant to strengthen loyalty in relationships.",
+                        "Shielding Talisman: Take a chipped talisman that once protected love from outside influences."
+                    ]
+                },
+                {
+                    question: "What led to the end of your Love Charm Expert career?",
+                    answers: [
+                        "Unreliable Charms: Your charms stopped working or had unpredictable effects, leading to many unhappy customers.",
+                        "Side Effects: Your charms started causing unwanted side effects like obsession, jealousy, or heartbreak.",
+                        "Rival Expert: A competing Love Charm Expert outshined you and damaged your reputation.",
+                        "Charm Mix-up: You accidentally swapped charms, causing disastrous romantic consequences for your clients.",
+                        "Ethical Issues: You faced public backlash for meddling in people's love lives without their consent.",
+                        "Cursed Supplies: A supplier provided cursed materials, causing your charms to malfunction and have unforeseen consequences."
+                    ]
+                }
+            ];
+            const quidditchPlayerQuestions = [
+                {
+                    question: "What was your position on the team?",
+                    answers: [
+                        "Chaser: Take a collection of Quidditch strategy books.",
+                        "Beater: Take a Beater's bat (d6).",
+                        "Keeper: Take a pair of padded Quidditch gloves.",
+                        "Seeker: Take a small, handcrafted wooden replica of the Golden Snitch.",
+                        "Quidditch Coach: Take a whistle and a clipboard with your favorite plays.",
+                        "Referee: Take a set of penalty cards and a Quidditch rulebook."
+                    ]
+                },
+                {
+                    question: "What ended your Quidditch career?",
+                    answers: [
+                        "Injury: A severe injury ended your career, but you're still a dedicated fan.",
+                        "Scandal: You were involved in a Quidditch betting scandal and were banned from the sport.",
+                        "Poor Performance: Your skills were never quite good enough for the professional level.",
+                        "Fear of Heights: An unfortunate incident made you develop a fear of heights, ending your career.",
+                        "Team Politics: You clashed with your teammates, and it led to your removal from the team.",
+                        "Rule Violation: You were caught using an illegal broom or enchanted equipment."
+                    ]
+                }
+            ];
+            const herbologistQuestions = [
+                {
+                    question: "What caused your Herbology career to fail?",
+                    answers: [
+                        "You accidentally crossbred two magical plants, resulting in a dangerous and unpredictable hybrid.",
+                        "Your experimentation with a rare and potent plant resulted in its extinction.",
+                        "You were caught stealing rare plant specimens from a restricted area of the Hogwarts greenhouse.",
+                        "Your herbal remedies had unexpected side effects, causing harm to your patients.",
+                        "You mistakenly identified a common plant as a rare and valuable specimen, leading to embarrassment and ridicule.",
+                        "Your fear of certain magical plants prevented you from successfully cultivating them, causing you to miss out on career opportunities."
+                    ]
+                },
+                {
+                    question: "What was your prized specimen?",
+                    answers: [
+                        "A Mandrake that could sing beautifully and put people to sleep.",
+                        "A Venomous Tentacula that could produce a powerful healing potion when harvested correctly.",
+                        "A rare, non-magical plant that had the ability to cure werewolf bites.",
+                        "A Fanged Geranium that could produce a potent poison when brewed into a potion.",
+                        "A Flutterby Bush that could camouflage itself to blend into its surroundings.",
+                        "A magical plant with the ability to teleport its user to any location they could visualize, but only if it was in full bloom under a full moon."
+                    ]
+                }
+            ];
+
+            const potionMakerQuestions = [
+                {
+                    question: "What was your specialty?",
+                    answers: [
+                        "Love Potions: Gain a small bag of pheromones from a rare species of beetle. If you mix them in a potion, anyone who drinks it will be immediately and passionately in love with you. Unfortunately, the effect lasts only a minute, and when it wears off, they will be extremely angry.",
+                        "Invisibility Potions: You can brew an Invisibility Potion, but there's always a side effect. The last person you saw before drinking the potion will be the only one who can see you. Unfortunately, this often ends up being the wrong person.",
+                        "Healing Potions: Your Healing Potions are unpredictable. They could heal one ailment but cause another, or they could cause hallucinations, or even death.",
+                        "Transformation Potions: You can transform people into animals, but the transformation is always random. You once turned someone into a snail for a month, and they still haven't forgiven you.",
+                        "Necromancy Potions: You can brew potions that temporarily raise the dead. However, they are often missing important parts or refuse to follow orders.",
+                        "Luck Potions: You have a special talent for brewing Luck Potions, but unfortunately, they always work in the opposite way. You once brewed a Luck Potion for a gambler, and they ended up losing everything they had."
+                    ]
+                },
+                {
+                    question: "What went wrong?",
+                    answers: [
+                        "Ingredient Issues: You used the wrong ingredients, which resulted in unpredictable and dangerous potions.",
+                        "Equipment Malfunctions: Your potion-making equipment malfunctioned frequently, leading to unpredictable and dangerous potions.",
+                        "Competitors: Your competitors spread rumors about your potions, leading to a loss of business.",
+                        "Accidents: You had a series of accidents that destroyed your laboratory and most of your potions.",
+                        "Legal Issues: You were sued for damages caused by your potions, which led to financial ruin.",
+                        "Unforeseen Consequences: Your potions had unexpected side effects that caused harm to your clients or those around them, damaging your reputation."
+                    ]
+                }
+            ];
+            function getRandomAnswer(question) {
+                return question.answers[Math.floor(Math.random() * question.answers.length)];
+            }
+
+            const career = careers[Math.floor(Math.random() * careers.length)];
+            let output = `Failed Career: ${career}<br>`;
+
+            /**
+             * ADD NEW FAILED CAREERS HERE
+             **/
+            if (career === 'Quidditch Player') {
+                quidditchPlayerQuestions.forEach((question) => {
+                    output += `${question.question}<br>`;
+                    output += getRandomAnswer(question) + "<br>";
+                });
+
+            } else if (career === 'Transmutation Expert') {
+                transmutationExpertQuestions.forEach((question) => {
+                    output += `${question.question}<br>`;
+                    output += getRandomAnswer(question) + "<br>";
+                });
+            } else if (career === 'Death Eater') {
+                deathEaterQuestions.forEach((question) => {
+                    output += `${question.question}<br>`;
+                    output += getRandomAnswer(question) + "<br>";
+                });
+            } else if (career === 'Love Charm Expert') {
+                failedLoveCharmExpert.forEach((question) => {
+                    output += `${question.question}<br>`;
+                    output += getRandomAnswer(question) + "<br>";
+                });
+            } else if (career === 'Herbologist') {
+                herbologistQuestions.forEach((question) => {
+                    output += `${question.question}<br>`;
+                    output += getRandomAnswer(question) + "<br>";
+                });
+            } else if (career === 'Potion Maker') {
+                potionMakerQuestions.forEach((question) => {
+                    output += `${question.question}<br>`;
+                    output += getRandomAnswer(question) + "<br>";
+                });
+            }
+
+            document.getElementById("output").innerHTML = output;
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Harry Potter RPG Character Generator</h1>
+    <button onclick="generateCharacter()">Generate Character</button>
+    <div id="output"></div>
+</body>
+
+</html>
+```
